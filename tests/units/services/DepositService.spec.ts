@@ -1,15 +1,15 @@
 import { DepositService } from '../../../src/services/DepositService'
-import { DepositRepositoryProtocol } from '../../../src/protocols/DepositRepositoryProtocol'
-import { IDeposit } from '../../../src/types/IDeposit';
+import { IDepositRepository } from '../../../src/interfaces/IDepositRepository'
+import { IDeposit } from '../../../src/interfaces/IDeposit';
 import  Deposit  from '../../../src/models/Deposit'
 
 interface SutTypes {
     sut: DepositService,
-    depositRepository: DepositRepositoryProtocol
+    depositRepository: IDepositRepository
 }
 
 const makeDepositRepository = () => {
-    class DepositRepositoryStub implements DepositRepositoryProtocol{
+    class DepositRepositoryStub implements IDepositRepository{
         async makeDeposit (depositData: IDeposit): Promise<Deposit>{
             return {
                 id: 1,

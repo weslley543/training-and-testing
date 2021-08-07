@@ -1,5 +1,5 @@
 import Account from '../models/Account';
-import { IAccount } from '../types/IAccount';
+import { IAccount } from '../interfaces/IAccount';
 
 export const accountTransform = (account: Account) : IAccount => {
     return {

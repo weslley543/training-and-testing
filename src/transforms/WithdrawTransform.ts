@@ -1,5 +1,5 @@
 import Withdraw from '../models/Withdraw'
-import { IWithdrawData } from '../types/IWithdrawData'
+import { IWithdrawData } from '../interfaces/IWithdrawData'
 
 export const withdrawTransform = (withdraw: Withdraw, valueRestant: number): IWithdrawData => {
     return {

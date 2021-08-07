@@ -1,18 +1,10 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
+      "experimentalDecorators": true,
+      "outDir": "./build",
       "module": "commonjs",
       "target": "es2019",
-      "moduleResolution": "node",
-      "strictNullChecks": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "noEmitOnError": true,
-      "noImplicitAny": true,
-      "sourceMap": true,
-      "outDir": "lib",
-      "lib": ["es2017"],
-      "declaration": true
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"]
+      "esModuleInterop": true,
+      "allowJs": true
+  }
 }

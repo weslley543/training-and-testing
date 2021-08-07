@@ -1,15 +1,15 @@
 import { WithdrawService } from '../../../src/services/WithdrawService'
-import { WithdrawRepositoryProtocol } from '../../../src/protocols/WithdrawRepositoryProtocol'
-import { IWithdraw } from '../../../src/types/IWithdraw';
+import { IWithdrawRepository } from '../../../src/interfaces/IWithdrawRepository'
+import { IWithdraw } from '../../../src/interfaces/IWithdraw';
 import  Withdraw  from '../../../src/models/Withdraw'
 
 interface SutTypes {
     sut: WithdrawService,
-    withdrawRepository: WithdrawRepositoryProtocol
+    withdrawRepository: IWithdrawRepository
 }
 
 const makeWithdrawRepository = () => {
-    class WithdrawRepositoryStub implements WithdrawRepositoryProtocol {
+    class WithdrawRepositoryStub implements IWithdrawRepository {
         async makeWithdraw (withdraw: IWithdraw): Promise<Withdraw> {
             return {
                 id: 1,

@@ -1,5 +1,5 @@
 import Deposit from '../models/Deposit'
-import { IDepositData } from '../types/IDepositData'
+import { IDepositData } from '../interfaces/IDepositData'
 
 export const depositTransform = (deposit: Deposit): IDepositData => {
     return {
@@ -9,4 +9,3 @@ export const depositTransform = (deposit: Deposit): IDepositData => {
         transaction_id: deposit.transactionId
     };
 };
-

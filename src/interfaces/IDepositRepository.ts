@@ -1,6 +1,6 @@
 import Deposit from '../models/Deposit'
-import { IDeposit } from '../types/IDeposit'
+import { IDeposit } from '../interfaces/IDeposit'
 
-export interface DepositRepositoryProtocol {
+export interface IDepositRepository {
     makeDeposit (depositData: IDeposit): Promise<Deposit>;
 };

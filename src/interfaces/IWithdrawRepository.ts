@@ -1,6 +1,6 @@
 import Withdraw from '../models/Withdraw'
-import { IWithdraw } from '../types/IWithdraw'
+import { IWithdraw } from '../interfaces/IWithdraw'
 
-export interface WithdrawRepositoryProtocol {
+export interface IWithdrawRepository {
     makeWithdraw (withdraw: IWithdraw): Promise<Withdraw>;
 };

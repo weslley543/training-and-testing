@@ -1,12 +1,12 @@
-import { IDeposit } from '../types/IDeposit'
-import { IDepositData } from '../types/IDepositData'
-import { DepositRepositoryProtocol } from '../protocols/DepositRepositoryProtocol'
+import { IDeposit } from '../interfaces/IDeposit'
+import { IDepositData } from '../interfaces/IDepositData'
+import { IDepositRepository } from '../interfaces/IDepositRepository'
 import { depositTransform } from '../transforms/DepositTransform'
 
 export class DepositService {
-   private readonly depositRepository: DepositRepositoryProtocol
+   private readonly depositRepository: IDepositRepository
 
-   constructor(depositRepository: DepositRepositoryProtocol){
+   constructor(depositRepository: IDepositRepository){
       this.depositRepository = depositRepository;
    }
 

@@ -1,13 +1,13 @@
-import { IWithdraw } from '../types/IWithdraw'
-import { IWithdrawData } from '../types/IWithdrawData'
-import { WithdrawRepositoryProtocol } from '../protocols/WithdrawRepositoryProtocol'
+import { IWithdraw } from '../interfaces/IWithdraw'
+import { IWithdrawData } from '../interfaces/IWithdrawData'
+import { IWithdrawRepository } from '../interfaces/IWithdrawRepository'
 import { withdrawTransform } from '../transforms/WithdrawTransform'
 
 
 export class WithdrawService {
-   private readonly withdrawRepository: WithdrawRepositoryProtocol
+   private readonly withdrawRepository: IWithdrawRepository
 
-   constructor(withdrawRepository: WithdrawRepositoryProtocol){
+   constructor(withdrawRepository: IWithdrawRepository){
       this.withdrawRepository = withdrawRepository;
    }
 
@@ -22,4 +22,3 @@ export class WithdrawService {
       return withdrawTransform(withdrawData, valueRestant);
    }
 }
-
