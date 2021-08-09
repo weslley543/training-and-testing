@@ -1,7 +1,7 @@
-import { IDeposit } from '../interfaces/IDeposit'
-import { IDepositData } from '../interfaces/IDepositData'
+import { Deposit } from '../models/Deposit'
+import { IDeposit } from '../interfaces/IDeposit';
 import { IDepositRepository } from '../interfaces/IDepositRepository'
-import { depositTransform } from '../transforms/DepositTransform'
+
 
 export class DepositService {
    private readonly depositRepository: IDepositRepository
@@ -10,9 +10,8 @@ export class DepositService {
       this.depositRepository = depositRepository;
    }
 
-   async makeDeposit (accountData: IDeposit): Promise<IDepositData> {
+   async makeDeposit (accountData: IDeposit): Promise<Deposit> {
       const deposit = await this.depositRepository.makeDeposit(accountData)
-      return depositTransform(deposit)
+      return deposit
    }
-
 }

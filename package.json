@@ -4,24 +4,46 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --collect-coverage",
-    "test:watch": "jest --collect-coverage --watch",
-    "test:watchAll": "jest --collect-coverage --watchAll"
+    "start": "sucrase-node src/server.ts",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js --runInBand",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js --runInBand",
+    "test:staged": "npm test --findRelatedTests --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:ci": "npm test -- --coverage --runInBand",
+    "test:watch": "jest --passWithNoTests --runInBand --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^26.0.24",
-    "@types/sequelize": "^4.28.10",
+    "@shelf/jest-mongodb": "^2.0.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.23",
+    "@types/mongodb": "^3.6.20",
+    "@types/node": "^15.12.0",
+    "@types/supertest": "^2.0.11",
+    "@types/validator": "^13.1.3",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "eslint": "^7.27.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "husky": "^6.0.0",
     "i": "^0.3.6",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.0.4",
-    "ts-node": "^10.1.0",
-    "tslint": "^6.1.3",
-    "typescript": "^4.3.5"
+    "jest": "^27.0.4",
+    "lint-staged": "^11.0.0",
+    "sucrase": "^3.20.1",
+    "supertest": "^6.1.3",
+    "ts-jest": "^27.0.2",
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "sequelize": "^6.6.5",
-    "sequelize-typescript": "^2.1.0"
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "fast-glob": "^3.2.7",
+    "mongodb": "^3.6.10",
+    "validator": "^13.6.0"
   }
 }

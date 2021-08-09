@@ -1,6 +1,6 @@
-import { IAccountRepository } from "../interfaces/IAccountRepository";
-import { accountTransform } from "../transforms/AccountTransform";
-import { IAccountData } from '../interfaces/IAccountData'
+import { IAccountRepository } from '../interfaces/IAccountRepository';
+import { IAccount } from '../interfaces/IAccount'
+import { Account } from '../models/Account';
 
 export class AccountService {
     private readonly accountRepository: IAccountRepository
@@ -8,28 +8,32 @@ export class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    async getAccount (account: IAccountData){
+    async getAccount (account: IAccount): Promise<Account>{
         const userAccount = await this.accountRepository.getAccount(account);
         if(!userAccount){
             throw new Error ('Account not find');
         }
-        const parsedAccount = accountTransform(userAccount);
 
-        return parsedAccount;
+        return userAccount;
     }
 
-    async updateBalanceInAccount(account: string, value: number) {
+    async getAccountByAccountNumber(account: string):Promise<Account>{
+        const user = await this.accountRepository.getAccountByAccountNumber(account);
+        return user;
+    }
+
+    async updateBalanceInAccount(account: string, value: number):Promise<Account> {
         const userAccount = await this.accountRepository.getAccountByAccountNumber(account);
-        
+
         if(!userAccount){
             throw new Error('Account not find');
         }
-       
+
         const updatedUser = await this.accountRepository.updateBalance(userAccount.accountNumber, value);
 
         if(!updatedUser){
             throw new Error();
         }
-        return accountTransform(updatedUser);
+        return updatedUser;
     }
 }

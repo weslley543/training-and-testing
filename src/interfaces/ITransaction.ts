@@ -1,4 +1,4 @@
 export interface ITransaction {
-    accountNumber?: string;
+    account_number?: string;
     type: number;
 }

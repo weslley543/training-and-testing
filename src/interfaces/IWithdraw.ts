@@ -1,5 +1,6 @@
 export interface IWithdraw {
-   transactionId: number;
+   transaction_id: string;
    value: number;
-   valueInAccount:number;
+   valueInAccount?:number;
+   value_restant?: number;
 };

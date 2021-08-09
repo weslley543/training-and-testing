@@ -1,10 +1,22 @@
 {
   "compilerOptions": {
-      "experimentalDecorators": true,
       "outDir": "./build",
       "module": "commonjs",
       "target": "es2019",
       "esModuleInterop": true,
       "allowJs": true
+  },
+  "baseUrl": ".",
+  "paths": {
+      "config/*": [ "./src/controllers/*" ],
+      "controller/*": [ "./src/helpers/*" ],
+      "enums/*": [ "./src/utils/*" ],
+      "helpers/*": [ "./src/components/*" ],
+      "interfaces/*": [ "./src/interfaces/*" ],
+      "middlewares/*": [ "./src/middlewares/*" ],
+      "models/*": [ "./src/models/*" ],
+      "repositories/*": [ "./src/routes/*" ],
+      "routes/*": [ "./src/services/*" ],
+      "services/*": [ "./src/validations/*" ]
   }
 }

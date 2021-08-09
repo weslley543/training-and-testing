@@ -1,22 +1,30 @@
-import Account from '../models/Account'
+import { MongoHelper } from '../helpers/MongoHelper';
 import { IAccountRepository } from '../interfaces/IAccountRepository'
-import { IAccountData } from '../interfaces/IAccountData';
+import { Account } from '../models/Account'
+import { IAccount } from '../interfaces/IAccount';
 
 export default class AccountRepository implements IAccountRepository {
-    protected model = Account;
 
-    async getAccount (accountData: IAccountData): Promise <Account> {
-        const { accountNumber, passwordHash } = accountData;
-        return await this.model.findOne({ where : { accountNumber, passwordHash } }) || new Account();
+    async getAccount (accountData: IAccount): Promise <Account> {
+        const accountCollection = await MongoHelper.getCollection('accounts')
+        const result = await accountCollection.findOne({account_number: accountData.accountNumber, password_hash: accountData.passwordHash})
+        return MongoHelper.map(result);
     }
-    
+
     async getAccountByAccountNumber(accountNumber: string): Promise<Account>{
-        return await this.model.findOne({ where: { accountNumber } }) || new Account()
+        const accountCollection = await MongoHelper.getCollection('accounts')
+        const result = await accountCollection.findOne({account_number: accountNumber});
+
+        return MongoHelper.map(result);
     }
-    
+
     async updateBalance(accountNumber: string, balance: number): Promise<Account>{
-        const [, updatedAccount] = await this.model.update({ balance }, { where : { accountNumber } });
-        return updatedAccount[0];
+        const accountCollection = await MongoHelper.getCollection('accounts')
+        const result = await accountCollection.findOneAndUpdate(
+            {account_number: accountNumber}, 
+            { $set: {balance} }, 
+            {returnOriginal: false}
+            );
+        return MongoHelper.map(result.value);
     }
 }
-

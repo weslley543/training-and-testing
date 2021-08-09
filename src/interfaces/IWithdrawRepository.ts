@@ -1,4 +1,4 @@
-import Withdraw from '../models/Withdraw'
+import { Withdraw } from '../models/Withdraw'
 import { IWithdraw } from '../interfaces/IWithdraw'
 
 export interface IWithdrawRepository {

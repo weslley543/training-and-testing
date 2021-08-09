@@ -1,6 +1,5 @@
 export interface IDeposit {
     value:number;
-    accountNumberTo: string;
-    createdAt: Date;
-    transactionId: number;
-}
+    account_number_to: string;
+    transaction_id: string;
+};

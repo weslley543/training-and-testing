@@ -1,5 +1,5 @@
-import { IAccountRepository } from "../interfaces/IAccountRepository";
-import { accountTransform } from "../transforms/AccountTransform";
+import { IAccountRepository } from '../interfaces/IAccountRepository';
+import { accountTransform } from '../transforms/AccountTransform';
 import { IAccountData } from '../interfaces/IAccountData'
 
 export class AccountStatementService {

@@ -1,5 +1,5 @@
 export interface IPayment {
-    transactionId: number;
+    transaction_id: string;
     value: number;
     valueInAccount: number;
  };

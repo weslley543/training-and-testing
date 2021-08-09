@@ -1,4 +1,4 @@
-import Payment from '../models/Payment';
+import { Payment } from '../models/Payment';
 import { IPayment } from '../interfaces/IPayment';
 
 export interface IPaymentRepository {

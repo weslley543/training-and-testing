@@ -1,7 +1,6 @@
 import { IWithdraw } from '../interfaces/IWithdraw'
-import { IWithdrawData } from '../interfaces/IWithdrawData'
 import { IWithdrawRepository } from '../interfaces/IWithdrawRepository'
-import { withdrawTransform } from '../transforms/WithdrawTransform'
+import { Withdraw } from '../models/Withdraw'
 
 
 export class WithdrawService {
@@ -11,14 +10,15 @@ export class WithdrawService {
       this.withdrawRepository = withdrawRepository;
    }
 
-   async makeWithdraw (withdraw: IWithdraw): Promise<IWithdrawData> {
+   async makeWithdraw (withdraw: IWithdraw): Promise<Withdraw> {
       const valueRestant = withdraw.valueInAccount - withdraw.value;
-      
+
       if(valueRestant < 0) {
          throw new Error('Insuficient balance');
       }
-      
+      withdraw.value_restant= valueRestant;
+
       const withdrawData = await this.withdrawRepository.makeWithdraw(withdraw);
-      return withdrawTransform(withdrawData, valueRestant);
+      return withdrawData;
    }
 }
