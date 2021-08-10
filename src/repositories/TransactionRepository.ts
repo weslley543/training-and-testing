@@ -6,7 +6,7 @@ import { MongoHelper } from '../helpers/MongoHelper';
 export class TransactionRepository implements ITransactionRepository {
 
     async saveTransaction(transactionData: ITransaction): Promise<Transaction> {
-        const accountCollection = await MongoHelper.getCollection('withdraw')
+        const accountCollection = await MongoHelper.getCollection('transactions')
         const result = await accountCollection.insertOne(transactionData)
 
         return MongoHelper.map(result.ops[0]);

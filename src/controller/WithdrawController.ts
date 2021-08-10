@@ -3,39 +3,38 @@ import { WithdrawService } from '../services/WithdrawService';
 import { WithdrawRepository } from '../repositories/WithdrawRepository';
 import { TransactionRepository } from '../repositories/TransactionRepository';
 import { TransactionTypes } from '../enums/TransactionTypes';
-
+import AccountRepository  from '../repositories/AccountRepository'
 export class WithdrawController {
-    private readonly withdrawService: WithdrawService;
-    private readonly transactionRepository: TransactionRepository
-
-    constructor(){
-        const withdrawRepository = new WithdrawRepository()
-        this.withdrawService = new WithdrawService(withdrawRepository);
-        this.transactionRepository = new TransactionRepository();
-    }
-
+    
     async makeWithdraw(req: Request, res: Response){
         try{
             const { body } = req;
-            const requiredFields = ['value', 'valueInAccount', 'accountNumber'];
+            const requiredFields = ['value'];
 
             for(const field of requiredFields){
                 if(!body[field]){
                     return res.status(400).json(new Error(`${field} is not find`));
                 }
             }
-            const transaction = await this.transactionRepository.saveTransaction({
+            const accountRepository = new AccountRepository();
+            const account = await accountRepository.getAccountById(body.id);
+            const transactionRepository = new TransactionRepository();
+
+            const transaction = await transactionRepository.saveTransaction({
                 account_number: body.accountNumber, type: TransactionTypes.SAQUE
             });
 
-            const withdraw = await this.withdrawService.makeWithdraw({
+            const withdrawService = new WithdrawService(new WithdrawRepository());
+
+            const withdraw = await withdrawService.makeWithdraw({
                 transaction_id: transaction.id,
                 value: body.value,
-                valueInAccount:body.valueInAccount,
+                valueInAccount:account.balance,
+                accountNumber: account.account_number
             });
             return res.status(200).json(withdraw);
         }catch(e){
-            return res.status(400).json(e);
+            return res.status(400).json({message: e.message});
         }
     }
 }

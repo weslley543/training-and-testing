@@ -3,4 +3,5 @@ export interface IWithdraw {
    value: number;
    valueInAccount?:number;
    value_restant?: number;
+   accountNumber: string;
 };

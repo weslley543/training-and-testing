@@ -6,7 +6,7 @@ export class DepositRepository implements IDepositRepository{
 
     async makeDeposit (depositData: IDeposit): Promise<Deposit> {
 
-        const accountCollection = await MongoHelper.getCollection('payment')
+        const accountCollection = await MongoHelper.getCollection('deposit')
         const result = await accountCollection.insertOne(depositData)
         return MongoHelper.map(result.ops[0]);
     }

@@ -29,7 +29,7 @@ export class AccountService {
             throw new Error('Account not find');
         }
 
-        const updatedUser = await this.accountRepository.updateBalance(userAccount.accountNumber, value);
+        const updatedUser = await this.accountRepository.updateBalance(userAccount.account_number, value);
 
         if(!updatedUser){
             throw new Error();

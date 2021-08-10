@@ -2,55 +2,44 @@ import { Request, Response } from 'express';
 import { DepositService } from '../services/DepositService';
 import { DepositRepository } from '../repositories/DepositRepository';
 import { TransactionRepository } from '../repositories/TransactionRepository'
-import { AccountService } from '../services/AccountService';
 import { TransactionTypes } from '../enums/TransactionTypes'
 import AccountRepository  from '../repositories/AccountRepository'
 
 export class DepositController {
-    private readonly depositService: DepositService;
-    private readonly transactionRepository: TransactionRepository;
-    private readonly accountService: AccountService;
 
-    constructor(){
-        const depositRepository = new DepositRepository();
-        const accountRepository = new AccountRepository();
-        this.depositService = new DepositService(depositRepository);
-        this.transactionRepository = new TransactionRepository();
-        this.accountService = new AccountService(accountRepository);
-    }
 
-    async makeDeposit (req: Request, res: Response){
+    async makeDepositUnlogged (req: Request, res: Response){
         try{
-            const { body } = req;
-            const requiredFields = ['value', 'accountNumberTo'];
-
-            for(const field of requiredFields){
+           const { body } = req;
+           const requiredField = ['accountNumberTo', 'value'];
+           
+           for(let field of requiredField){
                 if(!body[field]){
-                    return res.status(400).json(new Error(`${field} is not find`));
+                    throw new Error(`${field} is required`);
                 }
-            }
-            const accountFrom = await this.accountService.getAccountByAccountNumber(body.accountNumberFrom);
+           }
 
-            const transaction = await this.transactionRepository.saveTransaction({
-                account_number: body.accountNumberFrom,
-                type: TransactionTypes.DEPOSITO
-            });
+           const accountRepository = new AccountRepository();
+           const accountTo = await accountRepository.getAccountByAccountNumber(body.accountNumberTo);
+           const valueToUpdate = Number(body.value) + accountTo.balance;
+           const depositService = new DepositService(new DepositRepository());
+           const transactionRepository = new TransactionRepository();
+           const transaction = await transactionRepository.saveTransaction({
+               account_number: '',
+               type: TransactionTypes.DEPOSITO
+           })
+           const deposit = await depositService.makeDeposit({
+               account_number_to: accountTo.account_number,
+               value: Number(body.value),
+               transaction_id: transaction.id
+           })
 
-
-            const deposit = await this.depositService.makeDeposit({
-                 value: body.value,
-                 account_number_to: body.accountNumberTo,
-                 transaction_id: transaction.id
-            });
-
-            const valueToUpdate = deposit.value + accountFrom.balance;
-
-            await this.accountService.updateBalanceInAccount(deposit.account_number_to, valueToUpdate);
-
-            return res.status(200).json(deposit);
+           const account = await accountRepository.updateBalance(accountTo.account_number, valueToUpdate);
+           delete account.password_hash;
+           return res.status(200).json({ deposit, account });
 
         }catch(e){
-            return res.status(400).json(e)
+            return res.status(400).json(e.message)
         }
     }
 }

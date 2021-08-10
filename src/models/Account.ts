@@ -3,5 +3,5 @@ export interface Account {
     name: string;
     balance: number;
     id: string;
-    password_hash: string;
+    password_hash?: string;
 };
