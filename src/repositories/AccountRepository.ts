@@ -14,9 +14,11 @@ export default class AccountRepository implements IAccountRepository {
 
     async getAccountByAccountNumber(accountNumber: string): Promise<Account>{
         const accountCollection = await MongoHelper.getCollection('accounts')
-
         const result = await accountCollection.findOne({account_number: accountNumber});
-        return MongoHelper.map(result);
+        if(result){
+            return MongoHelper.map(result);
+        }
+        return null;
     }
 
     async updateBalance(accountNumber: string, balance: number): Promise<Account>{
@@ -34,6 +36,7 @@ export default class AccountRepository implements IAccountRepository {
         const accountCollection = await MongoHelper.getCollection('accounts');
         const result = await accountCollection.insertOne(account);
         return MongoHelper.map(result.ops[0]);
+
     }
 
     async getAccountById (id: string): Promise<Account> {

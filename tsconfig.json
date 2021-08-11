@@ -6,17 +6,4 @@
       "esModuleInterop": true,
       "allowJs": true
   },
-  "baseUrl": ".",
-  "paths": {
-      "config/*": [ "./src/controllers/*" ],
-      "controller/*": [ "./src/helpers/*" ],
-      "enums/*": [ "./src/utils/*" ],
-      "helpers/*": [ "./src/components/*" ],
-      "interfaces/*": [ "./src/interfaces/*" ],
-      "middlewares/*": [ "./src/middlewares/*" ],
-      "models/*": [ "./src/models/*" ],
-      "repositories/*": [ "./src/routes/*" ],
-      "routes/*": [ "./src/services/*" ],
-      "services/*": [ "./src/validations/*" ]
-  }
 }
