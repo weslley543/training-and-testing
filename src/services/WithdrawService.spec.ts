@@ -48,8 +48,8 @@ describe('Withdraw Service', () => {
         const { sut, withdrawRepository } = makeSut();
         const valueToWithdraw = {
             value: 500,
-            valueInAccount: 200,
-            value_restant: 100,
+            valueInAccount: 1000,
+            value_restant: 500,
             created_at:new Date(),
             account_number:'any_account'
          };
@@ -65,8 +65,8 @@ describe('Withdraw Service', () => {
         const { sut } = makeSut();
         const valueToWithdraw = {
             value: 500,
-            valueInAccount: 200,
-            value_restant: 400,
+            valueInAccount: 1000,
+            value_restant: 500,
             created_at:new Date(),
             account_number:'any_account'
          };
@@ -75,8 +75,8 @@ describe('Withdraw Service', () => {
 
          expect(value).toEqual({
             value: 500,
-            valueInAccount: 200,
-            value_restant: 400,
+            valueInAccount: 1000,
+            value_restant: 500,
             created_at:valueToWithdraw.created_at,
             account_number:'any_account'
          })

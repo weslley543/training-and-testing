@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sucrase-node src/server.ts",
+    "start": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js --runInBand",
     "test:integration": "npm test -- --watch -c jest-integration-config.js --runInBand",
     "test:staged": "npm test --findRelatedTests --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:ci": "npm test -- --coverage --runInBand",
-    "test:watch": "jest --passWithNoTests --runInBand --watch",
     "lint": "tslint -c ./tslint.json -p tsconfig.json --fix"
   },
   "author": "",

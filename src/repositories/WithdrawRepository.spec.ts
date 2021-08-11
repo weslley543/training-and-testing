@@ -24,6 +24,6 @@ describe('Account Repository', () => {
         expect(withdraw).toBeTruthy()
         expect(withdraw.id).toBeTruthy()
         expect(withdraw.value).toBe(500)
-        expect(withdraw.value_restant).toBe(300)
+        expect(withdraw.value_restant).toBe(500)
     });
 });

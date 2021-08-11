@@ -1,7 +1,7 @@
 import { MongoHelper } from '../helpers/MongoHelper';
 import  { DepositRepository }  from './DepositRepository';
 
-describe('Account Repository', () => {
+describe('Deposit Repository', () => {
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
     })
@@ -22,6 +22,6 @@ describe('Account Repository', () => {
         expect(deposit.id).toBeTruthy()
         expect(deposit.account_number_to).toBe('any_account_to')
         expect(deposit.value).toBe(500)
-        expect(deposit.created_at).toBe('2021-08-10T23:26:37.419Z')
+        expect(deposit.created_at).toBeTruthy()
     });
 })
