@@ -56,7 +56,6 @@ import singupTransform from '../transform/singupTransform';
 
             const accountRepository = new AccountRepository();
             const isRegistred = await accountRepository.getAccountByAccountNumber(body.account_number);
-            console.log(isRegistred);
             if(isRegistred){
                 return res.status(400).json({ message: 'user already registered' });
             }
