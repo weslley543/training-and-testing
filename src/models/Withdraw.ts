@@ -1,6 +1,7 @@
 export interface Withdraw {
-    transaction_id: string,
     value: number
     value_restant: number;
     id: string;
+    created_at: Date;
+    account_number: string;
 }

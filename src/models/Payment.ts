@@ -1,5 +1,6 @@
 export interface Payment {
-    transaction_id: string;
     value: number;
     id: string;
+    created_at: Date;
+    account_number:string;
 }

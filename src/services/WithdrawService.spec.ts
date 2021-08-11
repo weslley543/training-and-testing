@@ -12,10 +12,11 @@ const makeWithdrawRepository = () => {
     class WithdrawRepositoryStub implements IWithdrawRepository {
         async makeWithdraw (withdraw: IWithdraw): Promise<Withdraw> {
             return {
-                transaction_id: 'any_transaction',
                 value: 500,
-                value_restant: 100,
-                id: 'any_id'
+                id:'any_id',
+                value_restant:100,
+                account_number: 'any_account',
+                created_at: withdraw.created_at
             }
         }
     }
@@ -34,10 +35,11 @@ describe('Withdraw Service', () => {
     test('Should be throw when dont have suficient found ', async () => {
         const { sut } = makeSut();
         const valueToWithdraw = {
-            transaction_id: 'any_transaction',
             value: 500,
             valueInAccount: 200,
-            value_restant: 1000,
+            value_restant: 100,
+            created_at:new Date(),
+            account_number:'any_account'
          };
          await expect(sut.makeWithdraw(valueToWithdraw)).rejects.toEqual(new Error('Insuficient balance'));
     });
@@ -45,10 +47,11 @@ describe('Withdraw Service', () => {
     test('Should be throws when make withdraw throws', async () => {
         const { sut, withdrawRepository } = makeSut();
         const valueToWithdraw = {
-            transaction_id: 'any_transaction',
             value: 500,
-            valueInAccount: 600,
+            valueInAccount: 200,
             value_restant: 100,
+            created_at:new Date(),
+            account_number:'any_account'
          };
 
          jest.spyOn(withdrawRepository, 'makeWithdraw').mockImplementationOnce(() => {
@@ -61,19 +64,21 @@ describe('Withdraw Service', () => {
     test('Should be make withdraw', async () => {
         const { sut } = makeSut();
         const valueToWithdraw = {
-            transaction_id: 'any_transaction',
             value: 500,
-            valueInAccount: 600,
-            value_restant: 100,
+            valueInAccount: 200,
+            value_restant: 400,
+            created_at:new Date(),
+            account_number:'any_account'
          };
 
          const value = await sut.makeWithdraw(valueToWithdraw);
 
          expect(value).toEqual({
-            transaction_id: 'any_transaction',
             value: 500,
-            value_restant: 100,
-            id:'any_id'
+            valueInAccount: 200,
+            value_restant: 400,
+            created_at:valueToWithdraw.created_at,
+            account_number:'any_account'
          })
     });
 });

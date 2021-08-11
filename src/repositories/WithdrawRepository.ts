@@ -8,7 +8,11 @@ export class WithdrawRepository implements IWithdrawRepository {
         delete withdraw.valueInAccount;
         const accountCollection = await MongoHelper.getCollection('withdraw')
         const result = await accountCollection.insertOne(withdraw)
-        
         return MongoHelper.map(result.ops[0]);
+    }
+    async getAllWithdraw(accountNumber: string): Promise<Withdraw[]>{
+        const withdrawCollection = await MongoHelper.getCollection('withdraw');
+        const result = await withdrawCollection.find({account_number: accountNumber}).toArray();
+        return result;
     }
 }

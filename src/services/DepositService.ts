@@ -12,6 +12,6 @@ export class DepositService {
 
    async makeDeposit (accountData: IDeposit): Promise<Deposit> {
       const deposit = await this.depositRepository.makeDeposit(accountData)
-      return deposit
+      return deposit;
    }
 }

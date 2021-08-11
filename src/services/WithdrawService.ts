@@ -22,7 +22,7 @@ export class WithdrawService {
       withdraw.value_restant= valueRestant;
 
       const withdrawData = await this.withdrawRepository.makeWithdraw(withdraw);
-      await this.accountRepository.updateBalance(withdraw.accountNumber, valueRestant);
+      await this.accountRepository.updateBalance(withdraw.account_number, valueRestant);
       return withdrawData;
    }
 }

@@ -11,21 +11,21 @@ describe('Account Repository', () => {
             balance: 500,
             password_hash: 'any_password'
         });
-        
+
     })
     afterAll(async () => {
         await MongoHelper.disconnect();
         const accountCollection = await MongoHelper.getCollection('accounts');
         await accountCollection.deleteMany({})
     })
-    
+
     test('should return an account on success', async () => {
         const sut = new AccountRepository()
         const account = await sut.getAccount({
             accountNumber:'any_account',
             passwordHash: 'any_password'
         })
-        
+
         expect(account).toBeTruthy()
         expect(account.id).toBeTruthy()
         expect(account.name).toBe('any_name')
@@ -36,7 +36,7 @@ describe('Account Repository', () => {
     test('should return an account', async () => {
         const sut = new AccountRepository()
         const account = await sut.getAccountByAccountNumber('any_account');
-        
+
         expect(account).toBeTruthy()
         expect(account.id).toBeTruthy()
         expect(account.name).toBe('any_name')

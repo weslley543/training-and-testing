@@ -1,20 +1,23 @@
-import { IAccountRepository } from '../interfaces/IAccountRepository';
-import { accountTransform } from '../transforms/AccountTransform';
-import { IAccountData } from '../interfaces/IAccountData'
-
+import { DepositRepository } from '../repositories/DepositRepository';
+import { WithdrawRepository } from '../repositories/WithdrawRepository';
+import { PaymentRepository } from '../repositories/PaymentRepository';
+import StatementTransform from '../transform/StatementTransform'
 export class AccountStatementService {
-    private readonly accountRepository: IAccountRepository
-    constructor(accountRepository: IAccountRepository){
-        this.accountRepository = accountRepository;
+    private  depositRepository: DepositRepository;
+    private  withdrawRepository: WithdrawRepository;
+    private  paymentRepository:  PaymentRepository
+    constructor( ){
+        this.depositRepository = new DepositRepository();
+        this.withdrawRepository = new WithdrawRepository();
+        this.paymentRepository = new PaymentRepository();
     }
 
-    async getAccountStatement (accountNumber: string, data:Date, period: number = 30){
-        const userAccount = await this.accountRepository.getAccount(account);
-        if(!userAccount){
-            throw new Error ('Account not find');
-        }
-        const parsedAccount = accountTransform(userAccount);
+    async getAccountStatement (accountNumber: string):Promise<any> {
 
-        return parsedAccount;
+          const deposits = await this.depositRepository.getAllDeposit(accountNumber) || [];
+          const withdraws = await this.withdrawRepository.getAllWithdraw(accountNumber) || [];
+          const payments = await this.paymentRepository.getAllPayments(accountNumber) || [];
+          const result = StatementTransform({deposits ,withdraws, payments })
+          return result;
     }
 }

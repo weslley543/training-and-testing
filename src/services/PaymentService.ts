@@ -18,7 +18,7 @@ export class PaymentService {
             throw new Error('Insuficient balance');
         }
         const payment = await this.paymentRepositoryProtocol.makePayment(paymentData);
-        await this.accountRepository.updateBalance(paymentData.accountNumber, valueToUpdateAccount)
+        await this.accountRepository.updateBalance(paymentData.account_number, valueToUpdateAccount)
         return payment;
     }
 };

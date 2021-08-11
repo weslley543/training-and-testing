@@ -6,7 +6,7 @@ import singupTransform from '../transform/singupTransform';
  export default class AccountController {
     async getAccountByAccountNumber (req: Request, res: Response) {
       try{
-          
+
             const { account_number }  = req.params;
             const accountService = new AccountService(new AccountRepository());
             const account = await accountService.getAccountByAccountNumber(account_number);
@@ -40,10 +40,10 @@ import singupTransform from '../transform/singupTransform';
     }
     async signUp (req: Request, res: Response) {
         try{
-            const { body } = req  
+            const { body } = req
             const requiredFields = ['account_number','name','password_hash'];
-            console.log(body);
-            for(let field of requiredFields){
+
+            for(const field of requiredFields){
                 if(!body[field]){
                     throw new Error(`${field} is required`);
                 }

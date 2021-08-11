@@ -1,6 +1,6 @@
 export interface IPayment {
-    transaction_id: string;
     value: number;
     valueInAccount: number;
-    accountNumber: string;
+    account_number: string;
+    created_at: Date
  };

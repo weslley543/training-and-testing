@@ -13,7 +13,7 @@ const makeDepositRepository = () => {
         async makeDeposit (depositData: IDeposit): Promise<Deposit>{
             return {
                 id: 'any_id',
-                transaction_id:'any_id',
+
                 account_number_to :'any_account_id',
                 value: 400
             }
@@ -35,8 +35,7 @@ describe('Deposit Service', () => {
         const { sut, depositRepository } = makeSut()
         const deposit = {
             value:500,
-            account_number_to: 'any_account',
-            transaction_id: 'any_id',
+            account_number_to: 'any_account'
         };
         const makeDepositSpy = jest.spyOn(depositRepository, 'makeDeposit');
 
@@ -44,7 +43,6 @@ describe('Deposit Service', () => {
         expect(makeDepositSpy).toHaveBeenCalled();
         expect(account).toEqual({
                 id: 'any_id',
-                transaction_id:'any_id',
                 account_number_to :'any_account_id',
                 value: 400
         });
@@ -55,7 +53,6 @@ describe('Deposit Service', () => {
         const deposit = {
             value:500,
             account_number_to: 'any_account',
-            transaction_id: 'any_id',
         };
         jest.spyOn(depositRepository, 'makeDeposit').mockImplementationOnce(() => {
             throw new Error();

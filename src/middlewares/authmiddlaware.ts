@@ -8,9 +8,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     res.status(401).json({ msg: 'Token not provided !!' });
   }
 
-  
+
   const [, token] = req.headers.authorization.split(' ');
-  
+
   jwt.verify(token, authConfig.secret, (err, decoded)=> {
       if(err){
         return res.status(401).json('invalid token');

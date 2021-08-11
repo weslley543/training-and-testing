@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { DepositService } from '../services/DepositService';
 import { DepositRepository } from '../repositories/DepositRepository';
-import { TransactionRepository } from '../repositories/TransactionRepository'
-import { TransactionTypes } from '../enums/TransactionTypes'
 import AccountRepository  from '../repositories/AccountRepository'
 
 export class DepositController {
@@ -12,8 +10,8 @@ export class DepositController {
         try{
            const { body } = req;
            const requiredField = ['accountNumberTo', 'value'];
-           
-           for(let field of requiredField){
+
+           for(const field of requiredField){
                 if(!body[field]){
                     throw new Error(`${field} is required`);
                 }
@@ -23,15 +21,10 @@ export class DepositController {
            const accountTo = await accountRepository.getAccountByAccountNumber(body.accountNumberTo);
            const valueToUpdate = Number(body.value) + accountTo.balance;
            const depositService = new DepositService(new DepositRepository());
-           const transactionRepository = new TransactionRepository();
-           const transaction = await transactionRepository.saveTransaction({
-               account_number: '',
-               type: TransactionTypes.DEPOSITO
-           })
            const deposit = await depositService.makeDeposit({
                account_number_to: accountTo.account_number,
                value: Number(body.value),
-               transaction_id: transaction.id
+               created_at: new Date()
            })
 
            const account = await accountRepository.updateBalance(accountTo.account_number, valueToUpdate);

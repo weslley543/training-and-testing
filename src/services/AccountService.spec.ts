@@ -27,7 +27,7 @@ const makeAccountRepository = () => {
                 balance: 500,
                 id:'any_id',
                 password_hash:'any_password'
-            } 
+            }
         }
         async updateBalance(accountNumber: string, balance: number): Promise<Account>{
             return {

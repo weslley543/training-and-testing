@@ -13,7 +13,7 @@ const makePaymentRepository = () => {
         async makePayment (payment: IPayment): Promise<Payment> {
             return {
                 value:500,
-                transaction_id: 'any_id',
+
                 id: 'any_id'
             }
         }
@@ -33,9 +33,9 @@ describe('Withdraw Service', () => {
     test('Should be throw when dont have suficient found ', async () => {
         const { sut } = makeSut();
         const valueToPay = {
-            transaction_id: 'any_id',
+    
             value: 1000,
-            valueInAccount: 500,
+            valueInAccount: 500
          };
          await expect(sut.makePayment(valueToPay)).rejects.toEqual(new Error('Insuficient balance'));
     });
@@ -43,9 +43,8 @@ describe('Withdraw Service', () => {
     test('Should be throws when make payment throws', async () => {
         const { sut, paymentRepository } = makeSut();
         const valueToPay = {
-            transaction_id: 'any_transaction',
             value: 1000,
-            valueInAccount: 1500,
+            valueInAccount: 1500
          };
 
          jest.spyOn(paymentRepository, 'makePayment').mockImplementationOnce(() => {
@@ -59,7 +58,7 @@ describe('Withdraw Service', () => {
         const { sut } = makeSut();
         const valueToPay = {
             value:500,
-            transaction_id: 'any_id',
+
             valueInAccount: 1500
          };
 
@@ -67,7 +66,6 @@ describe('Withdraw Service', () => {
 
          expect(value).toEqual({
             value:500,
-            transaction_id: 'any_id',
             id: 'any_id'
          })
     });
